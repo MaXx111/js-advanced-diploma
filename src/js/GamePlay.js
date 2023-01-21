@@ -2,7 +2,7 @@ import { calcHealthLevel, calcTileType } from './utils';
 
 export default class GamePlay {
   constructor() {
-    this.boardSize = 8;
+    this.boardSize = 7;
     this.container = null;
     this.boardEl = null;
     this.cells = [];
