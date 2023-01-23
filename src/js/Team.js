@@ -1,6 +1,3 @@
-import Swordsman from './Characters/childClasses/Swordsman';
-import Bowman from './Characters/childClasses/Bowerman';
-
 /**
  * Класс, представляющий персонажей команды
  *
@@ -22,7 +19,7 @@ export default class Team {
   }
 
   addAll(arr) {
-    for (let i = 0; i < arr.length; i++) {
+    for (let i = 0; i < arr.length; i += 1) {
       this.characters.push(arr[i]);
     }
   }

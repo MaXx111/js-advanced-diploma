@@ -1,10 +1,10 @@
 import Character from '../Character.js';
 
-export default class Swordsman extends Character {
+export default class Daemon extends Character {
   constructor(level = 1) {
-    super('Swordsman');
+    super(level, 'daemon');
     this.level = level;
     this.defense = 10;
-    this.attack = 40;
+    this.attack = 10;
   }
 }

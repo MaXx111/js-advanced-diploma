@@ -1,8 +1,8 @@
 import Character from '../Character.js';
 
-export default class Zombie extends Character {
+export default class Undead extends Character {
   constructor(level = 1) {
-    super('Zombie');
+    super(level, 'undead');
     this.level = level;
     this.defense = 10;
     this.attack = 40;
