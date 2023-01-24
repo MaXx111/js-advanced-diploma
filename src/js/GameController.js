@@ -1,6 +1,7 @@
 import themes from './themes.js';
 import {generateTeam} from './generators.js';
 import PositionedCharacter from './PositionedCharacter.js';
+import GamePlay from './GamePlay.js';
 
 //классы персонажей
 import Bowman from './Characters/Bowman.js';
@@ -85,17 +86,26 @@ export default class GameController {
   init() {
     // TODO: add event listeners to gamePlay events
     this.gamePlay.drawUi(themes.prairie);
-    this.gamePlay.redrawPositions(this.positions())
+    this.gamePlay.redrawPositions(this.positions());
+
+    this.cellEnter()
 
     // TODO: load saved stated from stateService
   }
 
+  cellEnter(){
+    
+    this.gameplay.addCellEnterListener(this.onCellEnter.bind(this))
+  }
+
   onCellClick(index) {
     // TODO: react to click
+    
   }
 
   onCellEnter(index) {
     // TODO: react to mouse enter
+    console.log(index);
   }
 
   onCellLeave(index) {
