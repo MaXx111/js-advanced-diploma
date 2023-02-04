@@ -17,6 +17,7 @@ export default class GameController {
     this.gamePlay = gamePlay;
     this.stateService = stateService;
     this.gameLevelCount = 1;
+    this.stopGameFlag = false;
 
     this.possiblePlayerPosition = [];
     this.possibleEnemyPosition = [];
@@ -126,11 +127,15 @@ export default class GameController {
     this.playersMaxLevel = 1;
     this.activeCharacter = false;
     this.gameLevelCount = 1;
+    this.stopGameFlag = false;
     this.gamePlay.drawUi(themes.prairie);
     this.gamePlay.redrawPositions(this.positions());
   }
 
   onCellClick(index) {
+    if(this.stopGameFlag){
+      return false
+    }
     const boardSize = this.gamePlay.boardSize ** 2;
     const playerTeam = ['bowman', 'magician', 'swordsman'];
     const cellCharacter = this.gamePlay.cells[index].querySelector('.character');
@@ -214,6 +219,10 @@ export default class GameController {
 
   onCellEnter(index) {
     // TODO: react to mouse enter
+    if(this.stopGameFlag){
+      this.gamePlay.setCursor(cursors.notallowed);
+      return false
+    }
     const allCells = this.gamePlay.cells;
     const cellCharacter = allCells[index].querySelector('.character');
     if (cellCharacter) {
@@ -260,6 +269,10 @@ export default class GameController {
 
   onCellLeave(index) {
     // TODO: react to mouse leave
+    if(this.stopGameFlag){
+      this.gamePlay.setCursor(cursors.notallowed);
+      return false
+    }
     const cell = this.gamePlay.cells[index];
     if (cell.querySelector('.character')) {
       const characterName = cell.querySelector('.character').className.split(/\s+/)[1];
@@ -593,7 +606,7 @@ export default class GameController {
   }
 
   stopGame(){
-    console.log(`stop`)
+    this.stopGameFlag = true;
   }
 
 
