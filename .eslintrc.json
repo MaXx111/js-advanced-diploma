@@ -17,9 +17,22 @@
             "LabeledStatement",
             "WithStatement"
           ],
-          "import/extensions": [
+        "import/extensions": [
+        "error",
+        "ignorePackages"
+        ],
+        "no-mixed-operators": [
             "error",
-            "ignorePackages"
-            ]
+            {
+                "groups": [
+                    ["+", "-", "*", "/", "%", "**"],
+                    ["&", "|", "^", "~", "<<", ">>", ">>>"],
+                    ["==", "!=", "===", "!==", ">", ">=", "<", "<="],
+                    ["&&", "||"],
+                    ["in", "instanceof"]
+                ],
+                "allowSamePrecedence": true
+            }
+        ]
     }
   }
