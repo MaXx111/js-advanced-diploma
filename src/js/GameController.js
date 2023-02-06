@@ -1,6 +1,8 @@
 import themes from './themes.js';
 import { generateTeam } from './generators.js';
 import PositionedCharacter from './PositionedCharacter.js';
+import GamePlay from './GamePlay.js';
+import GameState from './GameState.js';
 
 // классы персонажей
 import Bowman from './Characters/Bowman.js';
@@ -16,8 +18,10 @@ export default class GameController {
   constructor(gamePlay, stateService) {
     this.gamePlay = gamePlay;
     this.stateService = stateService;
+    this.gameState = new GameState();
     this.gameLevelCount = 1;
     this.stopGameFlag = false;
+    this.themesDraw = themes.prairie;
 
     this.possiblePlayerPosition = [];
     this.possibleEnemyPosition = [];
@@ -103,6 +107,8 @@ export default class GameController {
     this.cellLeave();
     this.cellClick();
     this.newGame();
+    this.loadGame();
+    this.saveGame();
     // TODO: load saved stated from stateService
   }
 
@@ -122,6 +128,46 @@ export default class GameController {
     this.gamePlay.addNewGameListener(this.onClickNewGame.bind(this));
   }
 
+  loadGame(){
+    this.gamePlay.addLoadGameListener(this.onClicLoadGame.bind(this));
+  }
+  
+  saveGame(){
+    this.gamePlay.addSaveGameListener(this.onClickSaveGame.bind(this));
+  }
+
+  onClickSaveGame(){
+    console.log(`save`);
+    this.gameState = {
+      characters: this.teamOnBoard,
+      gameLevel: this.gameLevelCount,
+      activeCharacter: this.activeCharacter,
+      stopGameFlag: this.stopGameFlag,
+      countPlayers: this.countPlayers,
+      playersMaxLevel: this.playersMaxLevel,
+      themesDraw: this.themesDraw
+    };
+    this.stateService.save(GameState.from(this.gameState));
+    GamePlay.showMessage('Игра сохранена');
+  }
+
+  onClicLoadGame(){
+    console.log(`load`)
+    const load = this.stateService.load();
+    console.log(load)
+    this.countPlayers = load.countPlayers;
+    this.playersMaxLevel = load.playersMaxLevel;
+    this.activeCharacter = load.activeCharacter;
+    this.gameLevelCount = load.gameLevel;
+    this.stopGameFlag = load.stopGameFlag;
+    this.gamePlay.drawUi(this.gameState.themesDraw);
+    this.teamOnBoard = []
+    for(let item of load.characters){
+      this.teamOnBoard.push(item);
+    }
+    this.gamePlay.redrawPositions(this.teamOnBoard);
+  }
+
   onClickNewGame(){
     this.countPlayers = 3;
     this.playersMaxLevel = 1;
@@ -129,6 +175,7 @@ export default class GameController {
     this.gameLevelCount = 1;
     this.stopGameFlag = false;
     this.gamePlay.drawUi(themes.prairie);
+    this.gameState.themes = themes.prairie;
     this.gamePlay.redrawPositions(this.positions());
   }
 
@@ -202,7 +249,6 @@ export default class GameController {
           }
         }
       });
-
       if (cellCharacter) {
         playerTeam.forEach((item) => {
           const characterName = cellCharacter.className.split(/\s+/)[1];
@@ -575,7 +621,6 @@ export default class GameController {
       }
       item.position = this.getPlayerPositionNumber();
     });
-
     this.gameLevelCount += 1;
     this.countPlayers += 1;
     this.playersMaxLevel += 1;
@@ -589,20 +634,18 @@ export default class GameController {
 
     this.generateEnemyPositionNumber();
     this.teamOnBoard = this.teamOnBoard.concat(this.generateEnemyTeam());
-
+    let themesDraw;
     if (this.gameLevelCount === 2) {
-      this.gamePlay.drawUi(themes.desert);
-      this.gamePlay.redrawPositions(this.teamOnBoard);
+      this.themesDraw = themes.desert;
     } else if (this.gameLevelCount === 3) {
-      this.gamePlay.redrawPositions(this.teamOnBoard);
-      this.gamePlay.drawUi(themes.arctic);
-      this.gamePlay.redrawPositions(this.teamOnBoard);
+      this.themesDraw = themes.arctic;
     } else if (this.gameLevelCount === 4) {
-      this.gamePlay.drawUi(themes.mountain);
-      this.gamePlay.redrawPositions(this.teamOnBoard);
+      this.themesDraw = themes.mountain;
     } else {
       this.stopGame();
     }
+    this.gamePlay.drawUi(this.themesDraw);
+    this.gamePlay.redrawPositions(this.teamOnBoard);
   }
 
   stopGame(){
