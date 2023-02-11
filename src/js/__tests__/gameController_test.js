@@ -1,6 +1,6 @@
-import GameController from '../GameController.js';
-import GamePlay from '../GamePlay.js';
-import GameStateService from '../GameStateService.js';
+// import GameController from '../GameController.js';
+// import GamePlay from '../GamePlay.js';
+// import GameStateService from '../GameStateService.js';
 
 // тест выдает ошибку на строке 12,
 // а если не создать экземпляр gamePlay

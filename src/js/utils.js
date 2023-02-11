@@ -31,10 +31,10 @@ export function calcTileType(index, boardSize) {
   if (index === boardSize - 1) {
     return 'top-right';
   }
-  if (index === boardSize ** 2 - boardSize) {
+  if (index === (boardSize ** 2) - boardSize) {
     return 'bottom-left';
   }
-  if (index === boardSize ** 2 - 1) {
+  if (index === (boardSize ** 2) - 1) {
     return 'bottom-right';
   }
 
@@ -50,7 +50,7 @@ export function calcTileType(index, boardSize) {
     return 'top';
   }
 
-  if (index < boardSize ** 2 && index > boardSize ** 2 - boardSize) {
+  if (index < (boardSize ** 2) && index > (boardSize ** 2) - boardSize) {
     return 'bottom';
   }
 

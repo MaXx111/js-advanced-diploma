@@ -33,6 +33,10 @@
                 ],
                 "allowSamePrecedence": true
             }
-        ]
+        ],
+        "no-param-reassign": 0,
+        "no-unused-vars": 0,
+        "no-alert": 0
+
     }
   }

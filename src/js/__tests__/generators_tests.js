@@ -1,11 +1,8 @@
 import { characterGenerator, generateTeam } from '../generators.js';
 
 import Bowman from '../Characters/Bowman.js';
-import Daemon from '../Characters/Daemon.js';
 import Magician from '../Characters/Magician.js';
 import Swordsman from '../Characters/Swordsman.js';
-import Undead from '../Characters/Undead.js';
-import Vampire from '../Characters/Vampire.js';
 
 test('Should genetate classes', () => {
   const result = [];

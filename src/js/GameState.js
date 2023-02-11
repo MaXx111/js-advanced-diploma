@@ -1,7 +1,7 @@
-import themes from './themes.js'
+import themes from './themes.js';
 
 export default class GameState {
-  constructor(){
+  constructor() {
     this.gameLevelCount = 1;
     this.stopGameFlag = false;
     this.themesDraw = themes.prairie;
@@ -18,6 +18,7 @@ export default class GameState {
     this.countPlayers = 3;
     this.playersMaxLevel = 1;
   }
+
   static from(object) {
     // TODO: create object
     if (typeof object === 'object') {
