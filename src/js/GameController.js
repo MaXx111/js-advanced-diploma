@@ -299,7 +299,7 @@ export default class GameController {
   }
 
   setValidMove(character, currentIndex) {
-    this.validMove = [];
+    this.gameState.validMove = [];
     let i = 0;
     const { boardSize } = this.gamePlay;
     const indexOfmove = currentIndex % boardSize;
@@ -372,7 +372,7 @@ export default class GameController {
   }
 
   setValidAttack(character, currentIndex) {
-    this.validAttack = [];
+    this.gameState.validAttack = [];
     let i = 0;
     const { boardSize } = this.gamePlay;
     const indexOfmove = currentIndex % boardSize;

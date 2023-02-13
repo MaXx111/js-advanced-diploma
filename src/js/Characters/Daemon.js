@@ -5,7 +5,7 @@ export default class Daemon extends Character {
     super(level, 'daemon');
     this.level = level;
     this.defense = 10;
-    this.attack = 100;
+    this.attack = 10;
     this.levelUp();
   }
 
